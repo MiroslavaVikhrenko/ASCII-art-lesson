@@ -28,7 +28,7 @@ namespace ASCII_art_lesson
             var openFileDialog = new OpenFileDialog
             {
                 //specify the filter for file types that we can open wil this graphical interface
-                Filter = "Images | *.bmp, *.png, *.jpg, *.JPEG"
+                Filter = "Images | *.bmp; *.png; *.jpg; *.JPEG"
             };
 
             Console.WriteLine("Press enter to start...\n");
