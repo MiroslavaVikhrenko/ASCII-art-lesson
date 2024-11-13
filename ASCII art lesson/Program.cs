@@ -45,7 +45,7 @@ namespace ASCII_art_lesson
 
                 Console.ReadLine();
 
-                //code to convert an image into ASCII art
+                //OPEN AN IMAGE
 
                 //ShowDialog() method result is represented with enum 'DialogResult'
                 //we are interested only in 'OK' as it's the only result that would lead to successful opening
@@ -96,6 +96,20 @@ namespace ASCII_art_lesson
 
                 //make sure that the size fits - calling ResizedBitmap() method where the image will be resized IF needed
                 bitmap = ResizedBitmap(bitmap);
+
+                //**************** CONVERT TO MONOCHROME ****************
+                //Why do we need to turn an image into bw?
+                //We will draw an image using the follwing table:
+                //char[] _asciiTable = { '.', ',', ':', '+', '*', '?', '%', 'S', '#', '@' };
+                //if we look closer to these simbols - they represent different bright levels like a gradient from 'black' to 'white'
+                //where the most on the right is the brightest, and the most on the left is the least bright
+                //we do not have room for colors in this scheme
+                //so when we draw an image in console we can only operate with the brightness level of the pixel
+
+                bitmap.ToGrayscale();
+
+                //now bitmap ready to convert into ASCII symbols, for this purpose we create a separate class 
+
             }
 
         }
