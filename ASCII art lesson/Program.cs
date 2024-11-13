@@ -110,6 +110,19 @@ namespace ASCII_art_lesson
 
                 //now bitmap ready to convert into ASCII symbols, for this purpose we create a separate class BitmapToASCIIConverter
 
+                //create an object of BitmapToASCIIConverter class and pass a bitmap 
+                var converter = new BitmapToASCIIConverter(bitmap);
+                //call Convert() method and reseive as result the rows with ASCII symbols
+                var rows = converter.Convert();
+
+                //now we just need to display those rows line by line in the console
+                foreach ( var row in rows )
+                {
+                    Console.WriteLine(row);
+                }
+                //after an image is displayed in the console we need to replace the coursor of the console in the top left corner
+                //so that we will see not the last lines from the drawn image but see it from the top
+                Console.SetCursorPosition(0, 0);
             }
 
         }
