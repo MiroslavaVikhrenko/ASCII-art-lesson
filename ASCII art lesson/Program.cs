@@ -14,8 +14,20 @@ namespace ASCII_art_lesson
         //That's why in sonsole I connect winforms library and will use open file dialog to be able to open files via graphical interface
         //We can do that even though the app will work from the console (Assemblies - Framework - System.Windows.Forms)
 
+        //[STAThread] attribute is needed so that we could call ShowDialog() method from openFileDialog
+
+        [STAThread]
         static void Main(string[] args)
         {
+            //create open file dialog object when started the program
+            var openFileDialog = new OpenFileDialog
+            {
+                //specify the filter for file types that we can open wil this graphical interface
+                Filter = "Images | *.bmp, *.png, *.jpg, *.JPEG"
+            };
+
+            //open the dialog when program starts
+            openFileDialog.ShowDialog();
         }
     }
 }
