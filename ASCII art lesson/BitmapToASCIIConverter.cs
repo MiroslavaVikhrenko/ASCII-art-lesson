@@ -11,6 +11,7 @@ namespace ASCII_art_lesson
     {
         //add an _asciiTable char array to store the grey gradients represented in char symbols
         private readonly char[] _asciiTable = { '.', ',', ':', '+', '*', '?', '%', 'S', '#', '@' };
+        private readonly char[] _asciiTableNegative = { '@', '#', 'S', '%', '?', '*', '+', ':', ',', '.' };
 
         //add a _bitmap field as reference to the bitmap which we will get in constructor
         private readonly Bitmap _bitmap;
@@ -21,12 +22,22 @@ namespace ASCII_art_lesson
             _bitmap = bitmap;
         }
 
+        public char[][] Convert()
+        {
+            return Convert(_asciiTable);
+        }
+
+        public char[][] ConvertAsNegative()
+        {
+            return Convert(_asciiTableNegative);
+        }
+
         //Method to convert a bw image into char symbols
         //returns 2-dimensional array => 2-dimensional array is a more convenient way to work with pixels
         //each row in an array will represent a single line that we will display in console
         //looping through one dimension of the array, the other dimension we will pass to Console.WriteLine()
         //and the entire line of symbols will be drawn
-        public char[][] Convert()
+        private char[][] Convert(char[] asciiTable)
         {
             //declare an array, 0 dimension size will be the height of the image
             var result = new char[_bitmap.Height][];
@@ -56,11 +67,11 @@ namespace ASCII_art_lesson
                     //display this symbol instead of the pixel and we will use Map() method for this
                     //we can use this method to get an index of the array so that we can take a symbol for drawing
 
-                    int mapIndex = (int)Map(_bitmap.GetPixel(x, y).R,0,255,0,_asciiTable.Length - 1);
+                    int mapIndex = (int)Map(_bitmap.GetPixel(x, y).R,0,255,0,asciiTable.Length - 1);
 
                     //in the result array we will have char symbols which we will display in console
 
-                    result[y][x] = _asciiTable[mapIndex];
+                    result[y][x] = asciiTable[mapIndex];
                 }
             }
            

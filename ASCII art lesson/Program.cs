@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Drawing;
 using System.Drawing.Text;
+using System.IO;
 
 namespace ASCII_art_lesson
 {
@@ -13,6 +14,8 @@ namespace ASCII_art_lesson
     {
         //constant to ensure correct proportions are protected when we resize an image 
         private const double WIDTH_OFFSET = 1.5;
+        //set max image width 
+        private const int MAX_WIDTH = 600;
 
         //In order we can convert an image into ASCII symbols - we need to get the original image first
         //We can achieve this in different ways - it would be inconvenient to type the image path manually in console
@@ -117,9 +120,13 @@ namespace ASCII_art_lesson
 
                 //now we just need to display those rows line by line in the console
                 foreach ( var row in rows )
-                {
                     Console.WriteLine(row);
-                }
+
+                var rowNegative = converter.ConvertAsNegative();
+
+                //connect System.IO so that we could add save file functionality
+                File.WriteAllLines("image.txt", rowNegative.Select(r => new string(r)));
+
                 //after an image is displayed in the console we need to replace the coursor of the console in the top left corner
                 //so that we will see not the last lines from the drawn image but see it from the top
                 Console.SetCursorPosition(0, 0);
@@ -130,17 +137,15 @@ namespace ASCII_art_lesson
         //Method to re-size the image
         private static Bitmap ResizedBitmap(Bitmap bitmap)
         {
-            //set max image width 
-            var maxWidth = 350;
             //we cannot change only image width otherwise the proportions will be distored
             //so if we change the width, we also need to change height
             //the below line ensures the proportions are kept the same
-            var newHeight = bitmap.Height / WIDTH_OFFSET * maxWidth / bitmap.Width;
+            var newHeight = bitmap.Height / WIDTH_OFFSET * MAX_WIDTH / bitmap.Width;
 
 
             //if the opened image by its width or height is bigger than the values we specified above, then we resize it
-            if (bitmap.Width > maxWidth || bitmap.Height > newHeight)
-                bitmap = new Bitmap(bitmap, new Size(maxWidth, (int)newHeight));
+            if (bitmap.Width > MAX_WIDTH || bitmap.Height > newHeight)
+                bitmap = new Bitmap(bitmap, new Size(MAX_WIDTH, (int)newHeight));
 
             //if the opened image width and height are fine, we do nothing, just return it as it is
 
