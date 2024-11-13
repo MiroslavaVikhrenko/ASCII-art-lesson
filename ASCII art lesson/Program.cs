@@ -108,7 +108,7 @@ namespace ASCII_art_lesson
 
                 bitmap.ToGrayscale();
 
-                //now bitmap ready to convert into ASCII symbols, for this purpose we create a separate class 
+                //now bitmap ready to convert into ASCII symbols, for this purpose we create a separate class BitmapToASCIIConverter
 
             }
 
